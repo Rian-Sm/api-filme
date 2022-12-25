@@ -1,4 +1,4 @@
-﻿using API.Models.Dtos;
+﻿using API.Models.Dtos.Filme;
 using AutoMapper;
 using FilmeAPI.Models;
 

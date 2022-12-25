@@ -1,4 +1,4 @@
-﻿using API.Models.Dtos;
+﻿using API.Models.Dtos.Filme;
 using AutoMapper;
 using FilmeAPI.Data;
 using FilmeAPI.Models;
@@ -30,7 +30,7 @@ namespace FilmeAPI.Controllers
            _context.Filmes.Add(filme);
            _context.SaveChanges();
 
-            return CreatedAtAction(nameof(BuscaPorId), new { Id = filme.Id }, filme);
+            return CreatedAtAction(nameof(Adicionar), new { Id = filme.Id }, filme);
         }
 
         [HttpGet]

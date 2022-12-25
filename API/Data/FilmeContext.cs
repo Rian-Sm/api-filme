@@ -1,4 +1,5 @@
-﻿using FilmeAPI.Models;
+﻿using API.Models;
+using FilmeAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FilmeAPI.Data
@@ -11,5 +12,6 @@ namespace FilmeAPI.Data
         }
 
         public DbSet<Filme> Filmes { get; set; }
+        public DbSet<Cinema> Cinemas { get; set; }
     }
 }

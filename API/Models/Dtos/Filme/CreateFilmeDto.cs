@@ -1,13 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace API.Models.Dtos
+namespace API.Models.Dtos.Filme
 {
-    public class ReadFilmeDto
+    public class CreateFilmeDto
     {
-        [Required]
-        [Key]
-        public  int Id { get; set; }
+
         [Required(ErrorMessage = "Necessário adicionar titulo no filme")]
         public string Titulo { get; set; }
         [Required(ErrorMessage = "Necessário adicionar diretor no filme")]
@@ -16,6 +13,5 @@ namespace API.Models.Dtos
         public string Genero { get; set; }
         [Range(1, 600)]
         public int Duracao { get; set; }
-        public DateTime HrRequisicao { get; set; }
     }
 }
