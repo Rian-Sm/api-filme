@@ -1,4 +1,5 @@
 ﻿using API.Models.Dtos;
+using AutoMapper;
 using FilmeAPI.Data;
 using FilmeAPI.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -15,20 +16,16 @@ namespace FilmeAPI.Controllers
     public class FilmeController : ControllerBase
     {
         private FilmeContext _context;
+        private IMapper _mapper;
 
-        public FilmeController(FilmeContext context) {
+        public FilmeController(FilmeContext context, IMapper mapper) {
             _context = context;
+            _mapper = mapper;
         }
     
         [HttpPost]
         public IActionResult Adicionar([FromBody]CreateFilmeDto filmeDto) {
-            Filme filme = new Filme
-            {
-                Titulo = filmeDto.Titulo,
-                Diretor = filmeDto.Diretor,
-                Duracao = filmeDto.Duracao,
-                Genero = filmeDto.Genero,
-            };
+            Filme filme = _mapper.Map<Filme>(filmeDto);
 
            _context.Filmes.Add(filme);
            _context.SaveChanges();
@@ -48,16 +45,7 @@ namespace FilmeAPI.Controllers
 
             if (filme != null)
             {
-                ReadFilmeDto filmeDto = new ReadFilmeDto
-                {
-                    Id = filme.Id,
-                    Titulo = filme.Titulo,
-                    Diretor = filme.Diretor,
-                    Genero = filme.Genero,
-                    Duracao = filme.Duracao,
-                    HrRequisicao = DateTime.Now
-
-                };
+                ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
 
                return Ok(filmeDto);
             }
@@ -70,10 +58,7 @@ namespace FilmeAPI.Controllers
             Filme filme = _context.Filmes.Where<Filme>(f => f.Id == id).FirstOrDefault();
             if (filme != null)
             {
-                filme.Titulo = filmeDto.Titulo;
-                filme.Diretor = filmeDto.Diretor;
-                filme.Genero = filmeDto.Genero;
-                filme.Duracao = filmeDto.Duracao;
+                _mapper.Map(filmeDto, filme);
 
                 _context.SaveChanges();
                 return NoContent();
